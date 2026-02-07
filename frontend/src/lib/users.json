@@ -1,0 +1,27 @@
+{
+    "users":[
+        {
+            "id":1,
+            "firstname":"Jhon Doe",
+            "lastname":"Smith",
+            "phone":"1234567890",
+            "email":"john.doe@example.com"
+
+        },
+           {
+            "id":2,
+            "firstname":"Markram",
+            "lastname":"jison",
+            "phone":"1234567890",
+            "email":"markram@example.com"
+        },
+           {
+            "id":3,
+            "firstname":"Fusion",
+            "lastname":"lol",
+            "phone":"1234567890",
+            "email":"fusion@example.com"
+
+        }
+    ]
+}
