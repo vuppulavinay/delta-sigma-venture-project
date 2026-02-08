@@ -47,7 +47,8 @@ const UsersList = () => {
     }, [])
 
     const getFormFieldsFn = () => {
-        axios.get("http://localhost:5000/api/users/getCreatedFormFields").then((res) => {
+        // axios.get("http://localhost:5000/api/users/getCreatedFormFields").then((res) => {
+        axios.get("https://backend-yu56.onrender.com/api/users/getCreatedFormFields").then((res) => {
             setFormFields(res.data.data);
             if (res.data.data.length > 0) {
                 setUsers((prev) => {
@@ -120,7 +121,8 @@ const UsersList = () => {
 
     const editUserFn = (id) => {
         try {
-            axios.put(`http://localhost:5000/api/users/updateUsers/${id}`, users).then((res) => {
+            axios.put(`https://backend-yu56.onrender.com/api/users/updateUsers/${id}`, users).then((res) => {
+            // axios.put(`http://localhost:5000/api/users/updateUsers/${id}`, users).then((res) => {
                 if (res.status === 200) {
                     setUserFormDialogOpen(false);
                     alert(res.data.message);
@@ -134,9 +136,10 @@ const UsersList = () => {
     }
 
     const createUserFn = (userObj) => {
-        console.log(userObj,'userObj');
+        console.log(userObj, 'userObj');
         try {
-            axios.post(`http://localhost:5000/api/users/createUsers`, userObj).then((res) => {
+            axios.post(`https://backend-yu56.onrender.com/api/users/createUsers`, userObj).then((res) => {
+            // axios.post(`http://localhost:5000/api/users/createUsers`, userObj).then((res) => {
                 if (res.status === 201) {
                     setUserFormDialogOpen(false);
                     // handleCloseCreateFieldDialog();
@@ -153,7 +156,8 @@ const UsersList = () => {
 
     const deleteUserFn = (id) => {
         try {
-            axios.delete(`http://localhost:5000/api/users/deleteUsers/${id}`, users).then((res) => {
+            axios.delete(`https://backend-yu56.onrender.com/api/users/deleteUsers/${id}`, users).then((res) => {
+            // axios.delete(`http://localhost:5000/api/users/deleteUsers/${id}`, users).then((res) => {
                 if (res.status === 200) {
                     getUsersFn();
                     alert(res.data.message);
@@ -167,7 +171,8 @@ const UsersList = () => {
 
     const getUsersFn = () => {
         try {
-            axios.get(`http://localhost:5000/api/users/getUsers`).then((res) => {
+            axios.get(`https://backend-yu56.onrender.com/api/users/getUsers`).then((res) => {
+            // axios.get(`http://localhost:5000/api/users/getUsers`).then((res) => {
                 if (res.status === 200) {
                     setUsersList(res.data.data);
                     // alert(res.data.message);
@@ -210,7 +215,7 @@ const UsersList = () => {
             for (let key in users) {
                 if (key !== "id") {
                     obj[key] = users[key];
-                }  
+                }
             }
             createUserFn(obj);
         }
