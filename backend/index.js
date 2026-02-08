@@ -14,7 +14,7 @@ app.use(express.json());
 connectDB();
 app.use(cors({
     "origin": ["http://localhost:3000",
-        "https://rainbow-licorice-ae8da8.netlify.app"
+        "https://shiny-horse-dd2420.netlify.app"
     ],
     // "origin":"*",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
