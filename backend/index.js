@@ -14,7 +14,7 @@ app.use(express.json());
 connectDB();
 app.use(cors({
     "origin": ["http://localhost:3000",
-        "https://iridescent-jalebi-97347e.netlify.app"
+        "https://rainbow-licorice-ae8da8.netlify.app"
     ],
     // "origin":"*",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
