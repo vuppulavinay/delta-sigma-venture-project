@@ -4,7 +4,8 @@ import FormFields from "../models/formFields.models.js";
 export const createUsersFn = async (req, res) => {
     try {
         const userObj = req.body;
-        let user = await FormFields.create(userObj);
+        console.log(userObj, '123');
+        let user = await FormFields.create({ fields: req.body });
         return res.status(201).json({ message: "User created successfully", data: user });
 
     } catch (error) {
@@ -18,8 +19,9 @@ export const updateUsers = async (req, res) => {
         const { id } = req.params;
         const userObj = req.body;
         let isalreadyExist = await FormFields.findById({ _id: id });
+
         if (isalreadyExist) {
-            let updatedUserInfo = await FormFields.findByIdAndUpdate({ _id: id }, userObj, {
+            let updatedUserInfo = await FormFields.findByIdAndUpdate({ _id: id }, { fields: userObj }, {
                 new: true,
             });
             return res.status(200).json({ message: "User info updated successfully", data: updatedUserInfo });

@@ -26,7 +26,7 @@ const UsersList = () => {
     const [createFormFields, setCreateFormFields] = useState({
         label: "",
         fieldName: "",
-        fieldType: ""
+        fieldType: "text"
     })
     const [formFields, setFormFields] = useState([]);
     const [usersList, setUsersList] = useState([]);
@@ -35,7 +35,7 @@ const UsersList = () => {
     const [userFieldDialogOpen, setUserFieldDialogOpen] = useState(false);
     const [title, setTitle] = useState("Create");
 
-   
+
 
     useEffect(() => {
         getUsersFn();
@@ -68,7 +68,7 @@ const UsersList = () => {
         })
     }
 
-    
+
     const handleOpenCustomFormDialog = () => {
         formFields.forEach((field) => {
             setUsers((prev) => {
@@ -99,14 +99,15 @@ const UsersList = () => {
     const handleEdit = (rowInfo) => {
         setUserFormDialogOpen(true);
         setTitle("Edit");
-        for (let field in rowInfo) {
+        for (let field in rowInfo.fields) {
             setUsers((prev) => {
-                return { ...prev, 
+                return {
+                    ...prev,
                     id: rowInfo._id,
-                     ...(field !== "_id" && { [field]: rowInfo[field] }) }
+                    ...(field !== "_id" && { [field]: rowInfo.fields[field] })
+                }
             })
         }
-
     }
 
     const handleUserChangeFn = (name, value) => {
@@ -132,9 +133,10 @@ const UsersList = () => {
 
     }
 
-    const createUserFn = () => {
+    const createUserFn = (userObj) => {
+        console.log(userObj,'userObj');
         try {
-            axios.post(`http://localhost:5000/api/users/createUsers`, users).then((res) => {
+            axios.post(`http://localhost:5000/api/users/createUsers`, userObj).then((res) => {
                 if (res.status === 201) {
                     setUserFormDialogOpen(false);
                     // handleCloseCreateFieldDialog();
@@ -204,9 +206,15 @@ const UsersList = () => {
         if (isValid && users["id"]) {
             editUserFn(users?.id);
         } else if (isValid && !users["id"]) {
-            createUserFn();
+            let obj = {};
+            for (let key in users) {
+                if (key !== "id") {
+                    obj[key] = users[key];
+                }  
+            }
+            createUserFn(obj);
         }
-        
+
     }
 
 
@@ -236,17 +244,17 @@ const UsersList = () => {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 {
-                                    formFields?.map((field)=>(
-                                        <TableCell>{row[field.fieldName] ?? 'N/A'}</TableCell>
+                                    formFields?.map((field) => (
+                                        <TableCell>{row.fields[field.fieldName] ?? 'N/A'}</TableCell>
                                     ))
                                 }
-                                 {/* <TableCell component="th" scope="row">
+                                {/* <TableCell component="th" scope="row">
                                     {row.firstname}
                                 </TableCell>
                                 <TableCell>{row.lastname}</TableCell>
                                 <TableCell>{row.phone}</TableCell>
                                 <TableCell>{row.email}</TableCell> */}
-                               {/* <TableCell>{row.Date ? row.Date : 'N/A'}</TableCell> */}
+                                {/* <TableCell>{row.Date ? row.Date : 'N/A'}</TableCell> */}
                                 <TableCell>
                                     <div style={{ display: 'flex', gap: "10px" }}>
                                         <Button variant="contained" sx={{ cursor: "pointer" }} size="small" onClick={() => handleEdit(row)}>Edit</Button>
